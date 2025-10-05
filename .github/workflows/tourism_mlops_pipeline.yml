@@ -27,9 +27,6 @@ jobs:
   data-prep:
     needs: register-dataset
     runs-on: ubuntu-latest
-Okay, I will modify the GitHub Actions workflow file (.github/workflows/tourism_mlops_pipeline.yml) to include a step to install your project as a package. This should resolve the ModuleNotFoundError.
-
-I have updated the GitHub Actions workflow file (.github/workflows/tourism_mlops_pipeline.yml) to include the step to
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
