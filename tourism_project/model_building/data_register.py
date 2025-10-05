@@ -1,7 +1,7 @@
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 from huggingface_hub import HfApi, create_repo
 import os
-
+from tourism_project.config import HF_REPO_ID
 
 repo_id = "sivakmr4-6-3/Tourism-Package-Prediction"
 repo_type = "dataset"
