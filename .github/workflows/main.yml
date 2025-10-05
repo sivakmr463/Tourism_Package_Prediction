@@ -1,0 +1,48 @@
+name: MLOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        pip install -r tourism_project/requirements.txt
+
+    - name: Run Data Registration Script
+      run: |
+        python tourism_project/model_building/data_register.py
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+    - name: Run Data Preparation Script
+      run: |
+        python tourism_project/model_building/prep.py
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+
+    - name: Run Training Script
+      run: |
+        python tourism_project/model_building/train.py
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+    - name: Upload Deployment Files to Hugging Face Space
+      run: |
+         python tourism_project/hosting/hosting.py
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
